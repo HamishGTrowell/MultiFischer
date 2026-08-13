@@ -1,0 +1,8 @@
+* text=auto
+xfischer/*.py -text
+tests/*.py text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.toml text eol=lf
+*.csv text eol=lf
+example.csv -text

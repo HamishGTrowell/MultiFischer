@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xfischer"
+version = "1.0.0"
+description = "Extended Fischer analysis of photoswitch photostationary states from UV-Vis spectra"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+  { name = "Hamish G Trowell", email = "hamish.trowell@gmail.com" },
+]
+keywords = [
+  "photochemistry",
+  "photoswitch",
+  "photostationary state",
+  "UV-Vis spectroscopy",
+  "Fischer method",
+]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Environment :: Console",
+  "Intended Audience :: Science/Research",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Chemistry",
+]
+dependencies = [
+  "numpy>=1.23",
+  "pandas>=1.5",
+  "matplotlib>=3.6",
+  "scipy>=1.9",
+  "seaborn>=0.12",
+]
+
+[project.optional-dependencies]
+dev = [
+  "build>=1.2",
+]
+
+[project.scripts]
+xfischer = "xfischer.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/HamishGTrowell/xFischer"
+Documentation = "https://github.com/HamishGTrowell/xFischer/tree/main/docs"
+Issues = "https://github.com/HamishGTrowell/xFischer/issues"
+Source = "https://github.com/HamishGTrowell/xFischer"
+
+[tool.setuptools]
+packages = ["xfischer"]
