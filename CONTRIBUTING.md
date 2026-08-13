@@ -20,7 +20,6 @@ python -m build
 ## Pull requests
 
 - Keep changes focused and document user-visible behavior in `CHANGELOG.md`.
-- Add regression tests for bug fixes and mathematical tests for scientific changes.
 - Do not change equations, filter semantics, defaults, or statistical definitions without a clear derivation and comparison against an independently calculated reference case.
 - Update both the user and scientific documentation when behavior changes.
 - Ensure the test suite passes on a clean environment.
