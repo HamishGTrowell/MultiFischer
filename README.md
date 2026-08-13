@@ -11,7 +11,7 @@ xFischer is a command-line program for estimating photoswitch photostationary-st
 - uses all unique irradiation pairs and imputes each pair's result at every observed irradiation wavelength;
 - applies pair-level PSS-range and metastable-spectrum filters followed by an irradiation-specific empirical HDI filter;
 - reports means, sample standard deviations, accepted-value counts, and full intermediate results;
-- repeats the filtered multipair calculation over 200 quantum-yield-ratio values to quantify assumption sensitivity;
+- repeats the filtered multipair calculation over a range of quantum-yield-ratio values to quantify assumption sensitivity;
 - produces publication-ready CSV tables, diagnostic logs, and plots; and
 - supports a single-pair mode for inspecting two PSS curves across the selected ratio range.
 
@@ -26,7 +26,7 @@ conda env create -f environment.yml
 conda activate xfischer
 ```
 
-The environment installs Python 3.12, the scientific Python dependencies, and xFischer itself in editable mode. It also selects Matplotlib's non-interactive `Agg` backend because xFischer saves figures to files rather than opening GUI windows. For a non-editable installation, replace `-e .` in `environment.yml` with `.` before creating the environment.
+The environment installs Python 3.12, the scientific Python dependencies, and xFischer itself in editable mode. For a non-editable installation, replace `-e .` in `environment.yml` with `.` before creating the environment.
 
 ## Quick start
 
@@ -59,8 +59,8 @@ xfischer --help
 Input is a comma-separated file with:
 
 1. a wavelength column in nm, headed `Wavelength` (common variants such as `Wavelength (nm)` and `WL` are accepted);
-2. the spectrum of the dark or stable state, headed `Dark` (several common aliases are accepted); and
-3. at least two PSS spectra whose headings are their irradiation wavelengths, for example `365`, `385`, or `400 nm`.
+2. the spectrum of the dark or stable state, headed `Dark`; and
+3. at least two columns of PSS UV-Vis absorbance data whose headings are their irradiation wavelengths, for example `365` or `385 nm`.
 
 ```csv
 Wavelength,Dark,365,385,400
@@ -69,13 +69,13 @@ Wavelength,Dark,365,385,400
 ...
 ```
 
-The supplied [`example.csv`](example.csv) is a complete working example. See the [user guide](docs/user-guide.md) for validation rules, every option, and output-file descriptions.
+The supplied [`example.csv`](example.csv) is a complete working example. See the [user guide](docs/user-guide.md) for validation rules, additional options, and output-file descriptions.
 
 ## Scientific basis
 
 The original Fischer method estimates conversion in a reversible two-state photochemical system from a known dark-state spectrum and PSS spectra obtained using two irradiation wavelengths. Its central assumption is that the forward-to-reverse quantum-yield ratio is invariant between the irradiation wavelengths.
 
-xFischer treats `X = 1` as the standard invariant-ratio result, applies the calculation over every unique wavelength pair, and repeats the full filtered analysis over a configurable range of `X` values. This sensitivity analysis shows how strongly the reported PSS depends on deviations from the invariance assumption; it does not measure the quantum yields or assign a probability distribution to `X`.
+xFischer treats `X = 1` as the standard invariant-ratio result, applies the calculation over every unique wavelength pair, and repeats the full filtered analysis over a configurable range of `X` values. This sensitivity analysis shows how strongly the reported PSS depends on deviations from the invariance assumption; it does not measure the quantum yields or assign a value to `X`.
 
 The exact equations, pair aggregation, filters, summary statistics, limitations, and interpretation are documented in the [scientific guide](docs/scientific-method.md).
 
@@ -91,7 +91,7 @@ Use the repository's [`CITATION.cff`](CITATION.cff) through GitHub's “Cite thi
 
 ## Contributing
 
-Bug reports, proposed tests, and documentation improvements are welcome. See [`CONTRIBUTING.md`](CONTRIBUTING.md). Changes that affect scientific calculations should include a mathematical rationale and regression tests.
+Bug reports, proposed tests, and documentation improvements are welcome. See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## License
 
