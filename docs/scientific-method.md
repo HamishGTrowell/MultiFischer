@@ -2,7 +2,10 @@
 
 ## Scope
 
-xFischer analyzes a reversible two-state photoswitch system using a known dark/stable-state UV-Vis spectrum and spectra measured at photostationary state (PSS) under at least two irradiation wavelengths. It implements the Fischer calculation, extends it over all unique irradiation pairs, applies physical and empirical filters, and measures sensitivity to deviations from the quantum-yield-ratio invariance assumption.
+MultiFischer analyzes a reversible two-state photoswitch system using a known dark/stable-state UV-Vis spectrum and spectra measured at photostationary state (PSS) under at least two irradiation wavelengths. It implements the Fischer calculation, extends it over all unique irradiation pairs, applies physical and empirical filters, and provides single-pair sensitivity analysis.
+
+> [!NOTE]
+> The multipair sensitivity analysis has a known issue. An update is planned for a future release.
 
 The original method is described by E. Fischer, [“Calculation of photostationary states in systems A ⇄ B when only A is known,” *J. Phys. Chem.* **71** (1967), 3704–3706](https://doi.org/10.1021/j100870a063).
 
@@ -28,9 +31,9 @@ PSS₁ = [d₂/A_D(λ₂) − d₁/A_D(λ₁)]
 
 For the second irradiation, pair order is reversed.
 
-## Extended quantum-yield-ratio calculation
+## Single-pair sensitivity calculation
 
-`X` is a dimensionless perturbation of the effective forward-to-reverse quantum-yield-ratio relationship between the two irradiation wavelengths. The standard invariance result is `X = 1`. For the first irradiation at general `X`, xFischer solves
+`X` is a dimensionless perturbation of the effective forward-to-reverse quantum-yield-ratio relationship between the two irradiation wavelengths. The standard invariance result is `X = 1`. In single-pair sensitivity analysis, MultiFischer solves the following equation for the first irradiation at general `X`:
 
 ```text
 a PSS₁² + b PSS₁ + c = 0
@@ -50,7 +53,7 @@ The default `--qyratio-range 0.5 2.0` is sampled at 200 evenly spaced points inc
 
 ## Multipair extension
 
-For `m` irradiation spectra, xFischer constructs all `m(m−1)/2` unique pairs. Each pair provides direct PSS estimates at its two irradiation wavelengths. At every remaining observed irradiation wavelength `λ₃`, the pair estimate is linearly interpolated or extrapolated along absorbance at `λ_max`:
+For `m` irradiation spectra, MultiFischer constructs all `m(m−1)/2` unique pairs. Each pair provides direct PSS estimates at its two irradiation wavelengths. At every remaining observed irradiation wavelength `λ₃`, the pair estimate is linearly interpolated or extrapolated along absorbance at `λ_max`:
 
 ```text
 PSS₃ = PSS₁ + [A₃(λ_max) − A₁(λ_max)]
@@ -70,11 +73,11 @@ A_meta,i(λ) = A_D(λ) + [A_i(λ) − A_D(λ)] / PSSᵢ.
 
 The pair-level metastable spectrum used for filtering is the pointwise arithmetic mean of the two independently extrapolated spectra. Zero or undefined PSS denominators make that pair's metastable spectrum unavailable.
 
-For the final UV-Vis figure, xFischer selects the irradiation wavelength with the highest accepted mean PSS. It extrapolates a representative metastable spectrum using the mean PSS and an absorbance envelope using mean PSS ± one sample standard deviation.
+For the final UV-Vis figure, MultiFischer selects the irradiation wavelength with the highest accepted mean PSS. It extrapolates a representative metastable spectrum using the mean PSS and an absorbance envelope using mean PSS ± one sample standard deviation.
 
 ## Filters
 
-Filters are applied sequentially and repeated independently at every sampled `X`.
+For the standard multipair result at `X = 1`, filters are applied sequentially.
 
 ### 1. Pair-level PSS range
 
@@ -82,7 +85,7 @@ Every PSS row belonging to a pair must be finite and within the inclusive `--pss
 
 ### 2. Pair-level metastable-spectrum filter
 
-For each pair, xFischer finds the minimum extrapolated metastable absorbance within `--meta-range` (default 275–600 nm). The pair passes when that minimum is at least `--meta-min` (default −0.05 AU). This rejects strongly negative, physically implausible extrapolations while allowing modest baseline noise.
+For each pair, MultiFischer finds the minimum extrapolated metastable absorbance within `--meta-range` (default 275–600 nm). The pair passes when that minimum is at least `--meta-min` (default −0.05 AU). This rejects strongly negative, physically implausible extrapolations while allowing modest baseline noise.
 
 ### 3. Irradiation-specific empirical HDI filter
 
@@ -98,11 +101,14 @@ Defaults are `hdi = 0.9` and `hdi_sigma = 5`. The HDI here is an empirical short
 
 At each irradiation wavelength, the reported mean, sample standard deviation (`ddof = 1`), and count are calculated from all rows passing all three filters. The HDI core defines filter bounds only and is not itself the reported sample.
 
-At `X = 1`, these are the standard final PSS results. Across the full `X` grid, the matrices and all filters are rebuilt before calculating each sensitivity summary.
+At `X = 1`, these are the standard final PSS results.
+
+## Multipair sensitivity analysis
+
+> [!NOTE]
+> The multipair sensitivity analysis has a known issue. An update is planned for a future release.
 
 ## Pair diagnostics
-
-The directed pair sensitivity matrix reports, in percentage points, the finite PSS maximum minus minimum across the sampled `X` range for a direct target/partner pair.
 
 The directed pair error matrix reports, in percentage points, the absolute difference between a direct pair's `X = 1` PSS and the final accepted multipair mean at the same target irradiation wavelength.
 
@@ -116,11 +122,10 @@ Interpretation requires all of the following to be reasonable for the experiment
 - spectra share concentration, optical path length, solvent, temperature, baseline treatment, and instrumental response;
 - Beer-Lambert additivity is applicable over the measured range;
 - thermal interconversion, photodegradation, side reactions, aggregation, and concentration drift do not materially distort the PSS spectra; and
-- the effective forward/reverse quantum-yield-ratio relationship is invariant enough for the Fischer result, or its plausible deviation is represented by the chosen `X` range.
+- the effective forward/reverse quantum-yield-ratio relationship is sufficiently invariant for the standard Fischer result.
 
-Multiple pair estimates are not independent experimental replicates because they reuse the same spectra. Their standard deviation characterizes dispersion among pair-derived estimates after filtering; it is not automatically an experimental standard error or a complete uncertainty budget. Sensitivity to `X` isolates one model assumption and does not cover spectral noise, wavelength calibration, incomplete equilibration, baseline errors, or model misspecification.
+Multiple pair estimates are not independent experimental replicates because they reuse the same spectra. Their standard deviation characterizes dispersion among pair-derived estimates after filtering; it is not automatically an experimental standard error or a complete uncertainty budget.
 
 ## Recommended reporting
 
-Report the xFischer version, input irradiation wavelengths, `λ_max` search band and selected wavelength, all filter settings, number of accepted estimates per irradiation, mean and sample standard deviation at `X = 1`, sampled `X` range, and the sensitivity result. Retain the input spectra, `run_settings.json`, `xfischer.log`, full PSS matrix, accepted rows, and HDI diagnostics with the publication archive.
-
+Report the MultiFischer version, input irradiation wavelengths, `λ_max` search band and selected wavelength, all filter settings, number of accepted estimates per irradiation, and mean and sample standard deviation at `X = 1`. Retain the input spectra, `run_settings.json`, `multifischer.log`, full PSS matrix, accepted rows, and HDI diagnostics with the publication archive.
