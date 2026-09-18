@@ -3,18 +3,18 @@
 [![CI](https://github.com/HamishGTrowell/MultiFischer/actions/workflows/ci.yml/badge.svg)](https://github.com/HamishGTrowell/MultiFischer/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-MultiFischer is a command-line program for estimating photoswitch photostationary-state (PSS) compositions from UV-Vis spectra. It extends the two-irradiation [Fischer method](https://doi.org/10.1021/j100870a063) by applying every unique irradiation-wavelength pair, aggregating the resulting PSS estimates, and filtering nonphysical and anomalous results.
+MultiFischer is a command-line program for estimating photoswitch photostationary state (PSS) compositions from UV-Vis spectra. It extends the two-irradiation [Fischer method](https://doi.org/10.1021/j100870a063) by applying every unique irradiation wavelength pair, aggregating the resulting PSS estimates, and filtering nonphysical and anomalous results.
 
 > [!NOTE]
 > The multipair sensitivity analysis has a known issue. An update is planned for a future release.
 
 ## What MultiFischer does
 
-- calculates standard Fischer PSS estimates at a quantum-yield ratio of `X = 1`;
+- calculates standard Fischer PSS estimates using the quantum yield ratio invariance assumption (`X = 1`);
 - uses all unique irradiation pairs and imputes each pair's result at every observed irradiation wavelength;
-- applies pair-level PSS-range and metastable-spectrum filters followed by an irradiation-specific empirical HDI filter;
+- applies pair-level PSS range and metastable spectrum filters followed by an irradiation-specific empirical HDI filter;
 - reports means, sample standard deviations, accepted-value counts, and full intermediate results;
-- produces publication-ready CSV tables, diagnostic logs, and plots; and
+- produces CSV results tables, diagnostic logs, and plots; and
 - supports a single-pair sensitivity mode for inspecting two PSS curves across the selected quantum-yield-ratio range.
 
 ## Installation with Conda
@@ -56,7 +56,7 @@ Input is a comma-separated file with:
 
 1. a wavelength column in nm, headed `Wavelength` (common variants such as `Wavelength (nm)` and `WL` are accepted);
 2. the spectrum of the dark or stable state, headed `Dark`; and
-3. at least two columns of PSS UV-Vis absorbance data whose headings are their irradiation wavelengths, for example `365` or `385 nm`.
+3. at least two columns of PSS UV-Vis absorbance data whose headings are their irradiation wavelengths, for example, `365` or `385 nm`.
 
 ```csv
 Wavelength,Dark,365,385,400
