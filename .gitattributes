@@ -1,5 +1,5 @@
 * text=auto
-xfischer/*.py -text
+multifischer/*.py -text
 tests/*.py text eol=lf
 *.md text eol=lf
 *.yml text eol=lf

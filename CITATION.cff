@@ -1,6 +1,6 @@
 cff-version: 1.2.0
-message: "If you use xFischer in research, please cite this software and the original Fischer method."
-title: "xFischer"
+message: "If you use MultiFischer in research, please cite this software and the original Fischer method."
+title: "MultiFischer"
 type: software
 version: 1.0.0
 date-released: 2026-08-13
@@ -8,15 +8,14 @@ authors:
   - family-names: "Trowell"
     given-names: "Hamish G"
     email: "hamish.trowell@gmail.com"
-repository-code: "https://github.com/HamishGTrowell/xFischer"
-url: "https://github.com/HamishGTrowell/xFischer"
+repository-code: "https://github.com/HamishGTrowell/MultiFischer"
+url: "https://github.com/HamishGTrowell/MultiFischer"
 license: MIT
 abstract: >-
-  xFischer is a command-line program for extended Fischer analysis of
+  MultiFischer is a command-line program for extended Fischer analysis of
   photoswitch photostationary-state compositions from UV-Vis spectra. It
-  aggregates results from multiple irradiation-wavelength pairs, filters
-  nonphysical and anomalous estimates, and evaluates sensitivity to the
-  quantum-yield-ratio invariance assumption.
+  aggregates results from multiple irradiation-wavelength pairs and filters
+  nonphysical and anomalous estimates.
 references:
   - type: article
     authors:

@@ -1,12 +1,12 @@
-# Contributing to xFischer
+# Contributing to MultiFischer
 
-Thank you for helping improve xFischer. Please open an issue before a substantial change so its scientific scope and compatibility can be discussed.
+Thank you for helping improve MultiFischer. Please open an issue before a substantial change so its scientific scope and compatibility can be discussed.
 
 ## Development setup
 
 ```bash
 conda env create -f environment.yml
-conda activate xfischer
+conda activate multifischer
 python -m unittest discover -s tests -v
 ```
 
@@ -25,4 +25,3 @@ python -m build
 - Ensure the test suite passes on a clean environment.
 
 By contributing, you agree that your contribution is licensed under the repository's MIT License.
-
