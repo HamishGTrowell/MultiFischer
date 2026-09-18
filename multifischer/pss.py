@@ -1,4 +1,4 @@
-"""Core PSS calculations for xFischer."""
+"""Core PSS calculations for MultiFischer."""
 
 from dataclasses import dataclass, field
 import numpy as np
@@ -63,7 +63,7 @@ class AbsorbanceData:
 
 @dataclass
 class FischerPairAnalysis:
-    """Perform Fischer and xFischer calculations for one irradiation pair.
+    """Perform Fischer and MultiFischer calculations for one irradiation pair.
 
     Absorbance values needed by the Fischer equations are extracted during
     initialisation. Calculated PSS values are cached by quantum-yield ratio so
@@ -137,8 +137,8 @@ class FischerPairAnalysis:
 
         if cache_key not in self._pss_cache:
             self._pss_cache[cache_key] = (
-                xfischer(self.abs_data, cache_key, target='irr1'),
-                xfischer(self.abs_data, cache_key, target='irr2'),
+                multifischer(self.abs_data, cache_key, target='irr1'),
+                multifischer(self.abs_data, cache_key, target='irr2'),
             )
 
         return self._pss_cache[cache_key]
@@ -690,12 +690,12 @@ def best_irr(df, irr_wls, darkmax_range):
     return str(bestirr)
 
 
-def xfischer(abs_data, X, target='irr1'):
+def multifischer(abs_data, X, target='irr1'):
     """Calculate the PSS for one wavelength of a Fischer pair.
 
     The standard Fischer expression is used when the effective
     quantum-yield ratio equals one. Otherwise, the continuous solution of the
-    xFischer quadratic is selected. For ``target='irr2'``, the pair ordering is
+    MultiFischer quadratic is selected. For ``target='irr2'``, the pair ordering is
     reversed and the reciprocal quantum-yield ratio is used.
 
     Parameters
@@ -752,7 +752,7 @@ def xfischer(abs_data, X, target='irr1'):
     c_coef = (d1 / a_dark_irr1) - (calc_X * d2 / a_dark_irr2)
     b_1_coef = 1.0 - (n_value * d1 / a_dark_irr1) - n_value + (d2 / a_dark_irr2) # b_coef(X=1)
 
-    if calc_X == 1: # Fischer PSS: xFischer PSS equation would return 0/0 = undefined at X=1 so use standard Fischer
+    if calc_X == 1: # Fischer PSS: MultiFischer PSS equation would return 0/0 = undefined at X=1 so use standard Fischer
         numerator = (d2 / a_dark_irr2) - (d1 / a_dark_irr1)
         denominator = 1.0 + (d2 / a_dark_irr2) - n_value * (1.0 + (d1 / a_dark_irr1))
         
@@ -769,7 +769,7 @@ def xfischer(abs_data, X, target='irr1'):
 
 
 def solve_quadratic_continuous_root(a, b, c, b_1):
-    """Select the xFischer quadratic root that is continuous at ``X = 1``.
+    """Select the MultiFischer quadratic root that is continuous at ``X = 1``.
 
     At ``X = 1``, the quadratic coefficient tends to zero. The sign of the
     linear coefficient at this limit, ``b_1``, determines which quadratic root

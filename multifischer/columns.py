@@ -1,4 +1,4 @@
-"""Canonical DataFrame column names used throughout xFischer."""
+"""Canonical DataFrame column names used throughout MultiFischer."""
 
 # Input spectral data
 WAVELENGTH = 'wavelength'

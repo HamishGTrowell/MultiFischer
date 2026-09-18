@@ -1,4 +1,4 @@
-"""Logging helpers for xFischer command-line runs."""
+"""Logging helpers for MultiFischer command-line runs."""
 
 from pathlib import Path
 import sys
@@ -14,7 +14,7 @@ from . import utils
 from . import columns as cols
 
 
-logger = logging.getLogger("xfischer")
+logger = logging.getLogger("multifischer")
 
 LOG_WIDTH = 120
 LOG_INDENT = '    '
@@ -50,7 +50,7 @@ def setup(out):
     logger.handlers.clear()
 
     _started_at = datetime.now()
-    log_path = Path(out) / 'xfischer.log'
+    log_path = Path(out) / 'multifischer.log'
     _output_files = {
         str(log_path.resolve()): ('Run log', log_path),
     }
@@ -67,7 +67,7 @@ def setup(out):
     logger.propagate = False
 
 def close():
-    """Close and remove all xFischer logging handlers."""
+    """Close and remove all MultiFischer logging handlers."""
 
     for handler in logger.handlers[:]:
         handler.close()
@@ -209,13 +209,13 @@ def intro():
     """Write the program introduction and citation information to the log."""
     logger.info('      -----------------------------------------------------------      ')
     logger.info('     |                   =====================                   |     ')
-    logger.info('     |                   xFischer PSS Analysis                   |     ')
+    logger.info('     |                 MultiFischer PSS Analysis                |     ')
     logger.info('     |                   =====================                   |     ')
     logger.info('     |                     Hamish G. Trowell                     |     ')
     logger.info('     |                   University of Oxford                    |     ')
     logger.info('      -----------------------------------------------------------      ')
     logger.info('')
-    logger.info(f'    xFischer PSS Analysis version {__version__}')
+    logger.info(f'    MultiFischer PSS Analysis version {__version__}')
     logger.info('    Cite this work as:')
     logger.info('    * TBC')
     logger.info('')
@@ -248,7 +248,7 @@ def complete():
 
     logger.info('')
     logger.info('***************************************************************')
-    logger.info('*************** xFISCHER PSS ANALYSIS FINISHED! ***************')
+    logger.info('************* MULTIFISCHER PSS ANALYSIS FINISHED! *************')
     logger.info('***************************************************************')
 
 
@@ -305,7 +305,7 @@ def _write_powershell_command(argument_groups):
     continuation_indent = '        '
     available_width = LOG_WIDTH - len(continuation_indent) - 2
     lines = []
-    current_line = 'python -m xfischer'
+    current_line = 'python -m multifischer'
 
     for group in argument_groups:
         fragment = subprocess.list2cmdline(group)
@@ -380,7 +380,7 @@ def error_termination():
 
     logger.error('')
     logger.error('**********')
-    logger.error('xFischer terminated with error')
+    logger.error('MultiFischer terminated with error')
     logger.error('**********')
 
 

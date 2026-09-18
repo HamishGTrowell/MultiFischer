@@ -1,4 +1,4 @@
-"""xFischer: extended Fischer-method PSS analysis from UV-Vis spectra."""
+"""MultiFischer: extended Fischer-method PSS analysis from UV-Vis spectra."""
 
 __version__ = '1.0.0'
 

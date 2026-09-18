@@ -1,4 +1,4 @@
-name: xfischer
+name: multifischer
 channels:
   - conda-forge
 dependencies:

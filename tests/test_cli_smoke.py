@@ -23,7 +23,7 @@ class CLISmokeTests(unittest.TestCase):
                 [
                     sys.executable,
                     "-m",
-                    "xfischer",
+                    "multifischer",
                     "--input",
                     str(REPOSITORY_ROOT / "example.csv"),
                     "--out",
@@ -49,11 +49,10 @@ class CLISmokeTests(unittest.TestCase):
                 "365_385nm_qy_ratio_sensitivity.csv",
                 "365_385nm_qy_ratio_sensitivity.png",
                 "run_settings.json",
-                "xfischer.log",
+                "multifischer.log",
             ):
                 self.assertTrue((output / filename).is_file(), filename)
 
 
 if __name__ == "__main__":
     unittest.main()
-

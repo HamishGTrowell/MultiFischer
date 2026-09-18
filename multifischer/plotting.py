@@ -1,4 +1,4 @@
-"""Plotting tools for xFischer results."""
+"""Plotting tools for MultiFischer results."""
 
 from pathlib import Path
 import numpy as np

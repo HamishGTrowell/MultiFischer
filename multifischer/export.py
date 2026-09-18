@@ -1,4 +1,4 @@
-"""Export tools for xFischer results and settings."""
+"""Export tools for MultiFischer results and settings."""
 
 from . import __version__
 from . import outlog
@@ -34,7 +34,7 @@ def settings(args):
 
     settings = {
         "program": {
-            "name": "xFischer",
+            "name": "MultiFischer",
             "version": __version__,
             "timestamp": datetime.now().isoformat(timespec="seconds"),
         },

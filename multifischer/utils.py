@@ -16,7 +16,7 @@ def cli_command():
         command = [
             'python',
             '-m',
-            'xfischer',
+            'multifischer',
             *sys.argv[1:],
         ]
     else:

@@ -12,7 +12,7 @@ from . import filters
 from . import columns as cols
 
 def run(args):
-    """Run the complete xFischer workflow.
+    """Run the complete MultiFischer workflow.
 
     Parameters
     ----------

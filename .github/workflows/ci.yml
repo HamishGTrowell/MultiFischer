@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
-      - name: Install xFischer
+      - name: Install MultiFischer
         run: python -m pip install .
       - name: Check dependencies
         run: python -m pip check

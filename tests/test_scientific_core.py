@@ -1,9 +1,9 @@
-"""Regression tests for stable, public xFischer behavior."""
+"""Regression tests for stable, public MultiFischer behavior."""
 
 import math
 import unittest
 
-from xfischer.pss import AbsorbanceData, qyratio_array, xfischer
+from multifischer.pss import AbsorbanceData, multifischer, qyratio_array
 
 
 class ScientificCoreTests(unittest.TestCase):
@@ -41,7 +41,7 @@ class ScientificCoreTests(unittest.TestCase):
 
         self.assertTrue(
             math.isclose(
-                xfischer(absorbance, X=1.0, target="irr1"),
+                multifischer(absorbance, X=1.0, target="irr1"),
                 expected,
                 rel_tol=1e-12,
                 abs_tol=1e-12,
@@ -51,4 +51,3 @@ class ScientificCoreTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

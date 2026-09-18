@@ -1,4 +1,4 @@
-"""Module entry point for ``python -m xfischer``."""
+"""Module entry point for ``python -m multifischer``."""
 
 from .cli import main
 

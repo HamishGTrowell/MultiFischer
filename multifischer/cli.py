@@ -1,4 +1,4 @@
-"""Command-line interface for xFischer PSS analysis."""
+"""Command-line interface for MultiFischer PSS analysis."""
 
 import sys
 import argparse
@@ -29,7 +29,7 @@ def parse_args(argv):
     """
 
     parser = argparse.ArgumentParser(
-        description='xFischer: Extended Fischer Method PSS Analysis',
+        description='MultiFischer: Extended Fischer Method PSS Analysis',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.suggest_on_error = True
@@ -162,7 +162,10 @@ def parse_args(argv):
     parser.add_argument(
         '--sensitivity',
         action='store_true',
-        help='Optional: Include sensitivity ranges in final UV-Vis and PSS plots.',
+        help=(
+            'Optional: Include multipair sensitivity ranges in final UV-Vis '
+            'and PSS plots. Known issue: an update is planned for a future release.'
+        ),
     )
 
     parser.add_argument(
